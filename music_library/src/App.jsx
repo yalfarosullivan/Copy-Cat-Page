@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react'
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Gallery from './Components/Gallery'
 import SearchBar from './Components/SearchBar'
+import AlbumView from './Components/AlbumView'
+import ArtistView from './Components/ArtistView'
+
 
  
 const App = () => {
@@ -34,9 +37,19 @@ const App = () => {
 
   return (
       <div>
-          <SearchBar handleSearch={handleSearch} />
-          {message}
-          <Gallery data={data} />
+        {message}
+        <Router>
+          <Routes>
+            <Route path="/" element={
+              <fragment>
+                <SearchBar handleSearch = {handleSearch} />
+                <Gallery data={data} />
+              </fragment>
+            } />
+            <Route path-="/album/:id" element={<AlbumView />} />
+            <Route path="/artist/:id" element={<ArtistView />} />
+          </Routes>
+        </Router>
       </div>
   )
 }
